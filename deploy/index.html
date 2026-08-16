@@ -1,0 +1,2685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чистый Финал — Уборка после ремонта в Новосибирске</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange-500: #f97316;
+            --orange-600: #ea580c;
+            --orange-400: #fb923c;
+            --orange-300: #fdba74;
+            --orange-100: #ffedd5;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --shadow-orange: 0 10px 40px -10px rgba(249,115,22,0.45);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-lg: 24px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.1s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.2s; }
+        .stagger-5 { transition-delay: 0.25s; }
+        .stagger-6 { transition-delay: 0.3s; }
+
+        /* ==================== CONTAINER ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ==================== HEADER / NAVBAR ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 10px 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--gray-900);
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--orange-600);
+        }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px rgba(249,115,22,0.3);
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249,115,22,0.4) !important;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gray-700);
+            position: absolute;
+            left: 4px;
+            transition: all 0.3s;
+        }
+        .mobile-toggle span:nth-child(1) { top: 8px; }
+        .mobile-toggle span:nth-child(2) { top: 15px; }
+        .mobile-toggle span:nth-child(3) { top: 22px; }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(160deg, var(--gray-50) 0%, var(--orange-100) 40%, #fff7ed 70%, var(--gray-50) 100%);
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251,146,60,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-content {
+            max-width: 560px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--orange-600);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--orange-500);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 .accent {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 480px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-orange);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px -8px rgba(249,115,22,0.55);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--gray-700);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
+        }
+        .btn-secondary:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            color: var(--orange-600);
+            border-color: var(--orange-300);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .hero-stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            line-height: 1;
+        }
+        .hero-stat-number .plus {
+            color: var(--orange-500);
+        }
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange-400), var(--orange-600), var(--orange-400));
+        }
+        .hero-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+        }
+        .hero-card-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .hero-card-item:last-child {
+            border-bottom: none;
+        }
+        .hero-card-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: var(--orange-100);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .hero-card-item-text {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+        }
+        .hero-card-item-text strong {
+            color: var(--gray-800);
+        }
+        .floating-card {
+            position: absolute;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.04);
+            animation: float-card 6s ease-in-out infinite;
+        }
+        .floating-card-1 {
+            top: -10px;
+            right: -20px;
+            animation-delay: 0s;
+        }
+        .floating-card-2 {
+            bottom: 30px;
+            left: -30px;
+            animation-delay: 2s;
+        }
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .floating-card .fc-num {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--orange-600);
+        }
+        .floating-card .fc-label {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* ==================== SECTION COMMON ==================== */
+        section {
+            padding: 100px 0;
+        }
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--orange-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ==================== PROBLEM SECTION ==================== */
+        .problems {
+            background: var(--white);
+            position: relative;
+        }
+        .problems::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+        }
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .problem-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 36px 30px;
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+        .problem-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orange-400), var(--orange-600));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .problem-card:hover::after {
+            opacity: 1;
+        }
+        .problem-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--orange-100);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        .problem-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+        }
+        .problem-card p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ==================== SOLUTION SECTION ==================== */
+        .solution {
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--orange-100) 50%, var(--gray-50) 100%);
+            position: relative;
+        }
+        .solution-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .solution-left {
+            position: sticky;
+            top: 100px;
+        }
+        .solution-left .section-title {
+            margin-bottom: 20px;
+        }
+        .solution-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .solution-item {
+            display: flex;
+            gap: 18px;
+            padding: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+            cursor: default;
+        }
+        .solution-item:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            transform: translateX(4px);
+        }
+        .solution-item-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(249,115,22,0.25);
+        }
+        .solution-item h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+        }
+        .solution-item p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* ==================== STEPS ==================== */
+        .steps {
+            background: var(--white);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--orange-300), var(--orange-500), var(--orange-300));
+            z-index: 0;
+        }
+        .step-item {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .step-num {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--orange-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--orange-600);
+            transition: all 0.4s;
+            box-shadow: var(--shadow-md);
+        }
+        .step-item:hover .step-num {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: var(--white);
+            border-color: var(--orange-500);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-orange);
+        }
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            line-height: 1.4;
+        }
+
+        /* ==================== RESULTS SECTION ==================== */
+        .results {
+            background: var(--gray-50);
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .result-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .result-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+        .result-card img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+        .result-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: var(--white);
+            color: var(--orange-600);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-md);
+        }
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            .result-card img {
+                height: 240px;
+            }
+        }
+
+        /* ==================== CTA SECTION ==================== */
+        .cta-section {
+            padding: 80px 0;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, var(--orange-500) 0%, var(--orange-600) 50%, #dc4a0a 100%);
+            border-radius: var(--radius-lg);
+            padding: 70px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px -15px rgba(249,115,22,0.4);
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-box::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-box > * {
+            position: relative;
+            z-index: 1;
+        }
+        .cta-box h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        .cta-box p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 36px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-checks {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .cta-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .cta-check-icon {
+            width: 22px;
+            height: 22px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            color: var(--orange-600);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        .btn-outline-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--white);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border: 2px solid rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.7);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== SECONDARY CTA ==================== */
+        .cta-secondary {
+            padding: 60px 0;
+        }
+        .cta-secondary-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 50px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+        .cta-secondary-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        .cta-secondary-text p {
+            color: var(--gray-500);
+            font-size: 1rem;
+        }
+        .btn-chat {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-orange);
+            transition: transform 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
+        }
+        .btn-chat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(249,115,22,0.5);
+        }
+
+        /* ==================== GUARANTEES ==================== */
+        .guarantees {
+            background: var(--white);
+        }
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+        }
+        .guarantee-card {
+            text-align: center;
+            padding: 36px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            transition: all 0.4s;
+        }
+        .guarantee-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--orange-300);
+        }
+        .guarantee-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--orange-100), #fff7ed);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 18px;
+            transition: all 0.4s;
+        }
+        .guarantee-card:hover .guarantee-icon {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            box-shadow: 0 8px 20px rgba(249,115,22,0.3);
+            transform: scale(1.1);
+        }
+        .guarantee-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        .guarantee-card p {
+            font-size: 0.82rem;
+            color: var(--gray-400);
+            line-height: 1.5;
+        }
+
+        /* ==================== FINAL CTA ==================== */
+        .final-cta {
+            padding: 80px 0 120px;
+        }
+        .final-cta-box {
+            background: var(--gray-900);
+            border-radius: var(--radius-lg);
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta-box::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .final-cta-box::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .final-cta-left, .final-cta-right {
+            position: relative;
+            z-index: 1;
+        }
+        .urgency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(249,115,22,0.15);
+            border: 1px solid rgba(249,115,22,0.3);
+            color: var(--orange-400);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .urgency-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--orange-500);
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        .final-cta-left h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 14px;
+            line-height: 1.15;
+        }
+        .final-cta-left p {
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+        .final-cta-right {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 36px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: var(--radius-sm);
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        .form-group input:focus {
+            border-color: var(--orange-500);
+            background: rgba(255,255,255,0.12);
+        }
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: var(--shadow-orange);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 6px;
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(249,115,22,0.5);
+        }
+        .form-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 14px;
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s, visibility 0.35s;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            transition: background 0.3s, color 0.3s;
+        }
+        .modal-close:hover {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--orange-100);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        .modal p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            margin-bottom: 28px;
+        }
+        .modal .form-group {
+            margin-bottom: 16px;
+        }
+        .modal .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+        .modal .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            color: var(--gray-800);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .modal .form-group input::placeholder {
+            color: var(--gray-400);
+        }
+        .modal .form-group input:focus {
+            border-color: var(--orange-500);
+            background: var(--white);
+        }
+        .modal .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: var(--shadow-orange);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 8px;
+        }
+        .modal .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(249,115,22,0.5);
+        }
+        .modal .form-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            margin-top: 14px;
+        }
+        .modal-success {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .modal-success-icon {
+            width: 70px;
+            height: 70px;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 18px;
+        }
+        .modal-success h3 {
+            margin-bottom: 8px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--gray-900);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 40px 0;
+        }
+        .footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        .footer-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 1rem;
+        }
+        .footer-text {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.85rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--orange-400);
+        }
+
+        /* ==================== PARALLAX ELEMENTS ==================== */
+        .parallax-element {
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        /* ==================== CHAT WIDGET ==================== */
+        .chat-fab {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(249,115,22,0.45);
+            z-index: 1500;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            color: white;
+            font-size: 1.6rem;
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(249,115,22,0.55);
+        }
+        .chat-fab.hidden {
+            transform: scale(0);
+            pointer-events: none;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 104px;
+            right: 28px;
+            width: 380px;
+            max-width: calc(100vw - 40px);
+            height: 520px;
+            max-height: calc(100vh - 140px);
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .chat-window.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .chat-header {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            padding: 20px 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header-avatar {
+            width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .chat-header-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .chat-header-info span {
+            font-size: 0.78rem;
+            opacity: 0.8;
+        }
+        .chat-header-close {
+            margin-left: auto;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        .chat-header-close:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--gray-50);
+        }
+        .chat-msg {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            animation: msgIn 0.3s ease;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-msg.bot {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            color: var(--gray-800);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.user {
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.typing {
+            color: var(--gray-400);
+            font-style: italic;
+        }
+        .chat-quick {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-self: flex-start;
+            animation: msgIn 0.3s ease;
+        }
+        .chat-quick button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--orange-400);
+            background: var(--white);
+            color: var(--orange-600);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chat-quick button:hover {
+            background: var(--orange-500);
+            color: white;
+        }
+        .chat-input-area {
+            padding: 14px 16px;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 10px;
+            background: var(--white);
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+            background: var(--gray-50);
+        }
+        .chat-input-area input:focus {
+            border-color: var(--orange-500);
+            background: var(--white);
+        }
+        .chat-input-area button {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
+        }
+        .chat-input-area button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+        }
+        @media (max-width: 480px) {
+            .chat-window {
+                right: 10px;
+                bottom: 90px;
+                width: calc(100vw - 20px);
+                height: calc(100vh - 110px);
+                border-radius: 16px;
+            }
+            .chat-fab {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-visual {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .solution-layout {
+                grid-template-columns: 1fr;
+            }
+            .solution-left {
+                position: static;
+            }
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .steps-grid::before {
+                display: none;
+            }
+            .guarantees-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .final-cta-box {
+                grid-template-columns: 1fr;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255,255,255,0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(0,0,0,0.06);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .hero-stats {
+                gap: 24px;
+            }
+            .hero-stat-number {
+                font-size: 1.4rem;
+            }
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            .guarantees-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .cta-box {
+                padding: 40px 24px;
+            }
+            .cta-box h2 {
+                font-size: 1.7rem;
+            }
+            .cta-secondary-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 36px 24px;
+            }
+            .final-cta-box {
+                padding: 30px;
+            }
+            .final-cta-left h2 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .footer .container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 0 60px;
+            }
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .hero-stats {
+                flex-wrap: wrap;
+            }
+            .steps-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .guarantees-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-checks {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">&#10024;</div>
+                Чистый Финал
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#problems">Проблема</a></li>
+                <li><a href="#solution">Решение</a></li>
+                <li><a href="#steps">Как работаем</a></li>
+                <li><a href="#guarantees">Гарантии</a></li>
+                <li><a href="#contact" class="nav-cta" data-modal>Оставить заявку</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    1500+ выполненных заказов за 3 года
+                </div>
+                <h1 class="reveal stagger-1">Уборка после ремонта<br>за <span class="accent">1 день</span></h1>
+                <p class="hero-subtitle reveal stagger-2">Комплексный клининг квартир и коттеджей после ремонта. Вывезём мусор, отмоем окна и удалим строительную пыль. Оплата после приёмки работы.</p>
+                <div class="hero-buttons reveal stagger-3">
+                    <a href="#contact" class="btn-primary" data-modal>Рассчитать стоимость</a>
+                    <a href="#problems" class="btn-secondary">Узнать больше</a>
+                </div>
+                <div class="hero-stats reveal stagger-4">
+                    <div>
+                        <div class="hero-stat-number">1500<span class="plus">+</span></div>
+                        <div class="hero-stat-label">Заказов выполнено</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-number">3 <span class="plus">года</span></div>
+                        <div class="hero-stat-label">На рынке</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-number">1 <span class="plus">день</span></div>
+                        <div class="hero-stat-label">Стандартная квартира</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card reveal-scale stagger-2">
+                    <div class="hero-card-title">Что входит в уборку:</div>
+                    <div class="hero-card-item">
+                        <div class="hero-card-icon">&#9989;</div>
+                        <div class="hero-card-item-text"><strong>Строительная пыль</strong> — удаляем везде, от потолка до плинтусов</div>
+                    </div>
+                    <div class="hero-card-item">
+                        <div class="hero-card-icon">&#128295;</div>
+                        <div class="hero-card-item-text"><strong>Следы краски и штукатурки</strong> — безопасная химия</div>
+                    </div>
+                    <div class="hero-card-item">
+                        <div class="hero-card-icon">&#128296;</div>
+                        <div class="hero-card-item-text"><strong>Окна и двери</strong> — без разводов и плёнки</div>
+                    </div>
+                    <div class="hero-card-item">
+                        <div class="hero-card-icon">&#128465;</div>
+                        <div class="hero-card-item-text"><strong>Вывоз мусора</strong> — соберём и увезём всё</div>
+                    </div>
+                </div>
+                <div class="floating-card floating-card-1">
+                    <div class="fc-num">6–8ч</div>
+                    <div class="fc-label">Стандартная квартира</div>
+                </div>
+                <div class="floating-card floating-card-2">
+                    <div class="fc-num">0 ₽</div>
+                    <div class="fc-label">Предоплата</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMS -->
+    <section class="problems" id="problems">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label reveal">&#128532; Знакомая ситуация?</div>
+                <h2 class="section-title reveal stagger-1">После ремонта хочется заехать,<br>но...</h2>
+                <p class="section-subtitle reveal stagger-2">Мы знаем, как это бывает. Вот с чем сталкиваются наши клиенты до того, как обращаются к нам.</p>
+            </div>
+            <div class="problems-grid">
+                <div class="problem-card reveal stagger-1">
+                    <div class="problem-icon">&#127959;</div>
+                    <h3>Пыль в каждом углу</h3>
+                    <p>Протираешь подоконник — через час снова белый налёт. Открываешь шкаф — там тонкий слой пыли. Кажется, что она проникает везде, и с этим ничего не сделать.</p>
+                </div>
+                <div class="problem-card reveal stagger-2">
+                    <div class="problem-icon">&#128295;</div>
+                    <h3>Следы на окнах и дверях</h3>
+                    <p>Рабочие обещали «всё отмыть», но оставили разводы на стекле, пятна на дверях и засохшую пену на полу. Сам оттирать не хочется — уже нет сил.</p>
+                </div>
+                <div class="problem-card reveal stagger-3">
+                    <div class="problem-icon">&#128465;</div>
+                    <h3>Мусор некуда деть</h3>
+                    <p>Осталось 10–15 мешков со строительным мусором. Контейнер не принимает, на свалку везти самому — время и нервы. А заезжать хочется в чистое пространство.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label reveal">&#9989; Решение</div>
+                <h2 class="section-title reveal stagger-1">Мы возьмём всю грязь на себя.<br>Вы — только примете результат</h2>
+            </div>
+            <div class="solution-layout">
+                <div class="solution-left">
+                    <div class="solution-list">
+                        <div class="solution-item reveal stagger-1">
+                            <div class="solution-item-icon">&#128196;</div>
+                            <div>
+                                <h4>Убираем строительную пыль везде</h4>
+                                <p>Пылесосим, моем, протираем все поверхности: от потолка до плинтусов. Используем профессиональные HEPA-пылесосы, которые не гоняют пыль обратно.</p>
+                            </div>
+                        </div>
+                        <div class="solution-item reveal stagger-2">
+                            <div class="solution-item-icon">&#10024;</div>
+                            <div>
+                                <h4>Отмываем то, что «намертво»</h4>
+                                <p>Следы краски, штукатурки, затирки, клея, пены. Применяем безопасную химию, которая убирает загрязнения, но не портит покрытия.</p>
+                            </div>
+                        </div>
+                        <div class="solution-item reveal stagger-3">
+                            <div class="solution-item-icon">&#128269;</div>
+                            <div>
+                                <h4>Чистим окна, двери, сантехнику</h4>
+                                <p>Снимаем защитную плёнку, убираем следы от неё, моем стёкла без разводов, чистим сантехнику от строительной грязи.</p>
+                            </div>
+                        </div>
+                        <div class="solution-item reveal stagger-4">
+                            <div class="solution-item-icon">&#128666;</div>
+                            <div>
+                                <h4>Вывозим мусор</h4>
+                                <p>Соберём, упакуем и увезём весь строительный мусор. Вам не нужно думать, куда его деть.</p>
+                            </div>
+                        </div>
+                        <div class="solution-item reveal stagger-5">
+                            <div class="solution-item-icon">&#9200;</div>
+                            <div>
+                                <h4>Работаем быстро</h4>
+                                <p>Стандартная квартира — 6–8 часов. За один день вы получите чистое пространство.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-right">
+                    <div class="cta-box reveal-scale" style="box-shadow: none; margin-top: 20px;">
+                        <h2>Готовы избавиться от грязи?</h2>
+                        <p>Оставьте заявку — перезвоним за 15 минут и назовём примерную стоимость</p>
+                        <div class="cta-buttons">
+                            <a href="#contact" class="btn-white" data-modal>Рассчитать стоимость</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results" id="results">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label reveal">&#10024; Результат</div>
+                <h2 class="section-title reveal stagger-1">Так выглядит уборка, когда мы закончили</h2>
+                <p class="section-subtitle reveal stagger-2">Свежие, чистые и готовые к жизни помещения — без пыли, разводов и следов ремонта</p>
+            </div>
+            <div class="results-grid">
+                <div class="result-card reveal stagger-1">
+                    <img src="img/result-1.jpg" alt="Чистая квартира после уборки">
+                    <div class="result-badge">После уборки</div>
+                </div>
+                <div class="result-card reveal stagger-2">
+                    <img src="img/result-2.jpg" alt="Чистая квартира после уборки">
+                    <div class="result-badge">После уборки</div>
+                </div>
+                <div class="result-card reveal stagger-1">
+                    <img src="img/result-3.jpg" alt="Чистая кухня после уборки">
+                    <div class="result-badge">После уборки</div>
+                </div>
+                <div class="result-card reveal stagger-2">
+                    <img src="img/result-4.jpg" alt="Чистая ванная после уборки">
+                    <div class="result-badge">После уборки</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="steps" id="steps">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label reveal">&#128221; Процесс</div>
+                <h2 class="section-title reveal stagger-1">Как мы работаем</h2>
+                <p class="section-subtitle reveal stagger-2">Всё просто и прозрачно — от заявки до идеально чистой квартиры</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-item reveal stagger-1">
+                    <div class="step-num">1</div>
+                    <div class="step-label">Оставляете заявку</div>
+                </div>
+                <div class="step-item reveal stagger-2">
+                    <div class="step-num">2</div>
+                    <div class="step-label">Бесплатный выезд оценщика или расчёт в чате</div>
+                </div>
+                <div class="step-item reveal stagger-3">
+                    <div class="step-num">3</div>
+                    <div class="step-label">Приезжаем со всем оборудованием</div>
+                </div>
+                <div class="step-item reveal stagger-4">
+                    <div class="step-num">4</div>
+                    <div class="step-label">Убираем вашу квартиру</div>
+                </div>
+                <div class="step-item reveal stagger-5">
+                    <div class="step-num">5</div>
+                    <div class="step-label">Вы принимаете работу</div>
+                </div>
+                <div class="step-item reveal stagger-6">
+                    <div class="step-num">6</div>
+                    <div class="step-label">Оплачиваете результат</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA MAIN -->
+    <section class="cta-section" id="cta1">
+        <div class="container">
+            <div class="cta-box reveal-scale">
+                <h2>Заедем в чистую квартиру уже на этой неделе</h2>
+                <p>Оставьте заявку на бесплатный расчёт стоимости</p>
+                <div class="cta-checks">
+                    <div class="cta-check">
+                        <div class="cta-check-icon">&#10003;</div>
+                        Перезвоним за 15 минут
+                    </div>
+                    <div class="cta-check">
+                        <div class="cta-check-icon">&#10003;</div>
+                        Назовём примерную цену по площади
+                    </div>
+                    <div class="cta-check">
+                        <div class="cta-check-icon">&#10003;</div>
+                        Подберём удобную дату уборки
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn-white" data-modal>Рассчитать стоимость</a>
+                    <a href="javascript:void(0)" class="btn-outline-white" onclick="document.getElementById('chatFab').click()">&#128172; Написать в чат</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECONDARY CTA -->
+    <section class="cta-secondary">
+        <div class="container">
+            <div class="cta-secondary-box reveal">
+                <div class="cta-secondary-text">
+                    <h3>Не уверены, сколько стоит уборка?</h3>
+                    <p>Напишите в чат — назовём примерную цену за 1 минуту</p>
+                </div>
+                <a href="javascript:void(0)" class="btn-chat" onclick="document.getElementById('chatFab').click()">
+                    &#128172; Написать в чат
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEES -->
+    <section class="guarantees" id="guarantees">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label reveal">&#128142; Гарантии</div>
+                <h2 class="section-title reveal stagger-1">Почему нам доверяют</h2>
+                <p class="section-subtitle reveal stagger-2">Мы не обещаем — мы даём гарантии, которые подкрепляем действиями</p>
+            </div>
+            <div class="guarantees-grid">
+                <div class="guarantee-card reveal stagger-1">
+                    <div class="guarantee-icon">&#128179;</div>
+                    <h4>Оплата после приёмки</h4>
+                    <p>Платите только когда увидите результат</p>
+                </div>
+                <div class="guarantee-card reveal stagger-2">
+                    <div class="guarantee-icon">&#128230;</div>
+                    <h4>Всё включено</h4>
+                    <p>Химия, оборудование, мешки для мусора</p>
+                </div>
+                <div class="guarantee-card reveal stagger-3">
+                    <div class="guarantee-icon">&#128737;</div>
+                    <h4>Гарантия 3 дня</h4>
+                    <p>Нашли пыль — вернём деньги за уборку</p>
+                </div>
+                <div class="guarantee-card reveal stagger-4">
+                    <div class="guarantee-icon">&#128062;</div>
+                    <h4>Безопасная химия</h4>
+                    <p>Можно заезжать с детьми и животными</p>
+                </div>
+                <div class="guarantee-card reveal stagger-5">
+                    <div class="guarantee-icon">&#128737;</div>
+                    <h4>Страхование</h4>
+                    <p>Несём ответственность за ваше имущество</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="contact">
+        <div class="container">
+            <div class="final-cta-box reveal-scale">
+                <div class="final-cta-left">
+                    <div class="urgency-badge">
+                        <span class="urgency-badge-dot"></span>
+                        Свободных бригад на этой неделе: 3
+                    </div>
+                    <h2>Забронируйте дату уборки сейчас — заедем в чистую квартиру в ближайшие дни</h2>
+                    <p>Или позвоните: <a href="tel:+7XXXXXXXXXX" style="color: var(--orange-400); text-decoration: none; font-weight: 700;">+7 (XXX) XXX-XX-XX</a></p>
+                </div>
+                <div class="final-cta-right">
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" placeholder="Как к вам обращаться?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                        <button type="submit" class="form-submit">Забронировать дату</button>
+                        <div class="form-note">Перезвоним в течение 15 минут</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="footer-logo">
+                <div class="logo-icon">&#10024;</div>
+                Чистый Финал
+            </a>
+            <div class="footer-text">&copy; 2024 Чистый Финал — Новосибирск. Все права защищены.</div>
+            <div class="footer-links">
+                <a href="#guarantees">Гарантии</a>
+                <a href="#solution">Услуги</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div id="modalFormView">
+                <div class="modal-icon">&#128221;</div>
+                <h3>Оставьте заявку</h3>
+                <p>Перезвоним за 15 минут и назовём точную стоимость уборки</p>
+                <form id="modalForm">
+                    <div class="form-group">
+                        <label for="modalName">Имя</label>
+                        <input type="text" id="modalName" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalPhone">Телефон</label>
+                        <input type="tel" id="modalPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <button type="submit" class="form-submit">Отправить заявку</button>
+                    <div class="form-note">Бесплатно. Без обязательств. Перезвоним за 15 минут.</div>
+                </form>
+            </div>
+            <div id="modalSuccessView" style="display:none;">
+                <div class="modal-success">
+                    <div class="modal-success-icon">&#10003;</div>
+                    <h3>Заявка отправлена!</h3>
+                    <p>Перезвоним в течение 15 минут</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT WIDGET -->
+    <button class="chat-fab" id="chatFab" aria-label="Написать в чат">&#128172;</button>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-avatar">&#128188;</div>
+            <div class="chat-header-info">
+                <h4>Олег</h4>
+                <span>Чистый Финал · онлайн</span>
+            </div>
+            <button class="chat-header-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Напишите сообщение..." autocomplete="off">
+            <button id="chatSend">&#10148;</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+    (function() {
+        const fab = document.getElementById('chatFab');
+        const win = document.getElementById('chatWindow');
+        const close = document.getElementById('chatClose');
+        const messages = document.getElementById('chatMessages');
+        const input = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('chatSend');
+
+        let chatGreeted = false;
+        fab.addEventListener('click', () => {
+            win.classList.add('open');
+            fab.classList.add('hidden');
+            input.focus();
+            if (!chatGreeted) {
+                chatGreeted = true;
+                addMsg('Здравствуйте, меня зовут Олег. Как я могу к Вам обращаться?', false);
+                step = 'ask_name';
+            }
+        });
+        close.addEventListener('click', () => {
+            win.classList.remove('open');
+            fab.classList.remove('hidden');
+        });
+
+        function addMsg(text, isUser) {
+            const div = document.createElement('div');
+            div.className = 'chat-msg ' + (isUser ? 'user' : 'bot');
+            div.textContent = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addBotWithQuick(text, options) {
+            const msg = document.createElement('div');
+            msg.className = 'chat-msg bot';
+            msg.textContent = text;
+            messages.appendChild(msg);
+            const wrap = document.createElement('div');
+            wrap.className = 'chat-quick';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    wrap.remove();
+                    handleSend(opt);
+                };
+                wrap.appendChild(btn);
+            });
+            messages.appendChild(wrap);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function showTyping() {
+            const div = document.createElement('div');
+            div.className = 'chat-msg bot typing';
+            div.id = 'typing';
+            div.textContent = 'Олег печатает...';
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        function hideTyping() {
+            const t = document.getElementById('typing');
+            if (t) t.remove();
+        }
+
+        const clientData = {};
+        let lastMentionedDate = null;
+        let step = 'greeting';
+
+        function collectData(msg) {
+            const m = msg.toLowerCase();
+
+            const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+            function formatDate(d) {
+                return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+            }
+            function baseDate() { return lastMentionedDate || new Date(); }
+
+            if (/послезавтра/.test(m)) {
+                const b = baseDate(); b.setDate(b.getDate() + 2); clientData.date = formatDate(b);
+                lastMentionedDate = null;
+            }
+            else if (/завтра/.test(m)) {
+                const b = baseDate(); b.setDate(b.getDate() + 1); clientData.date = formatDate(b);
+                lastMentionedDate = null;
+            }
+            else if (/сегодня/.test(m)) { clientData.date = formatDate(new Date()); lastMentionedDate = null; }
+            else if (/через нед|неделю/.test(m)) {
+                const b = baseDate(); b.setDate(b.getDate() + 7); clientData.date = formatDate(b);
+                lastMentionedDate = null;
+            }
+            else if (/понедельник/.test(m)) {
+                const base = baseDate(); const diff = (1 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/вторник/.test(m)) {
+                const base = baseDate(); const diff = (2 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/сред[ау]/.test(m)) {
+                const base = baseDate(); const diff = (3 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/четверг/.test(m)) {
+                const base = baseDate(); const diff = (4 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/пятниц[ау]/.test(m)) {
+                const base = baseDate(); const diff = (5 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/суббот[ау]/.test(m)) {
+                const base = baseDate(); const diff = (6 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else if (/воскресенье/.test(m)) {
+                const base = baseDate(); const diff = (0 - base.getDay() + 7) % 7 || 7;
+                const d = new Date(base); d.setDate(base.getDate() + diff);
+                clientData.date = formatDate(d); lastMentionedDate = null;
+            }
+            else {
+                const monthMap = {'январ':'0','феврал':'1','март':'2','апрел':'3','ма':'4','июн':'5','июл':'6','июд':'6','август':'7','сентябр':'8','октябр':'9','ноябр':'10','декабр':'11'};
+                const dateMatch = m.match(/(\d{1,2})\s*(январ|феврал|март|апрел|ма[йя]|июн|июл|июд|август|сентябр|октябр|ноябр|декабр)/);
+                if (dateMatch) {
+                    const day = parseInt(dateMatch[1]);
+                    let monthKey = dateMatch[2];
+                    let monthNum = -1;
+                    for (const [key, val] of Object.entries(monthMap)) {
+                        if (monthKey.startsWith(key)) { monthNum = parseInt(val); break; }
+                    }
+                    if (monthNum >= 0) {
+                        const now = new Date();
+                        let year = now.getFullYear();
+                        const d = new Date(year, monthNum, day);
+                        if (d < now) { year++; d.setFullYear(year); }
+                        clientData.date = formatDate(d);
+                        lastMentionedDate = new Date(d);
+                    }
+                } else {
+                    const dotMatch = m.match(/(\d{1,2})[\.\/\-](\d{1,2})(?:[\.\/\-](\d{2,4}))?/);
+                    if (dotMatch) {
+                        const day = parseInt(dotMatch[1]);
+                        const month = parseInt(dotMatch[2]) - 1;
+                        const year = dotMatch[3] ? parseInt(dotMatch[3]) : new Date().getFullYear();
+                        if (month >= 0 && month <= 11 && day >= 1 && day <= 31) {
+                            const d = new Date(year, month, day);
+                            clientData.date = formatDate(d);
+                            lastMentionedDate = new Date(d);
+                        }
+                    } else {
+                        const bareDay = m.match(/(?:в|на)\s*(\d{1,2})\s*числ|^(\d{1,2})\s*числ|(?:^|\s)(\d{1,2})$/);
+                        if (bareDay) {
+                            const day = parseInt(bareDay[1] || bareDay[2] || bareDay[3]);
+                            if (day >= 1 && day <= 31) {
+                                const now = new Date();
+                                const d = new Date(now.getFullYear(), now.getMonth(), day);
+                                if (d < now) d.setMonth(d.getMonth() + 1);
+                                clientData.date = formatDate(d);
+                                lastMentionedDate = new Date(d);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function estimatePrice() {
+            if (!clientData.area) return null;
+            const sqm = parseInt(clientData.area);
+            const isHouse = /коттедж|дом/i.test(clientData.type || '');
+            let base = sqm * (isHouse ? 250 : 200);
+            const min = Math.round((base - 2000) / 1000) * 1000;
+            const max = Math.round((base + 3000) / 1000) * 1000;
+            return 'Примерно ' + Math.max(min, 7000) + '–' + max + ' ₽';
+        }
+
+        const nameMap = {
+            'наташа':'наталья','наталья':'наталья','натasha':'наталья',
+            'миша':'михаил','мишка':'михаил','михаил':'михаил','misha':'михаил',
+            'дима':'дмитрий','димка':'дмитрий','дмитрий':'дмитрий','dima':'дмитрий',
+            'саша':'александр','сашка':'александр','александр':'александр','sasha':'александр',
+            'коля':'николай','колька':'николай','николай':'николай','kolya':'николай',
+            'петя':'пётр','петруха':'пётр','пётр':'пётр','петр':'пётр',
+            'ваня':'иван','ванька':'иван','иван':'иван','vanya':'иван',
+            'катя':'екатерина','катюша':'екатерина','екатерина':'екатерина',
+            'аня':'анна','анюта':'анна','анна':'анна',
+            'маша':'мария','маруся':'мария','мария':'мария',
+            'лена':'елена','елена':'елена',
+            'оля':'ольга','ольга':'ольга',
+            'света':'светлана','светлана':'светлана',
+            'ира':'ирина','ирина':'ирина',
+            'таня':'татьяна','татьяна':'татьяна',
+            'надя':'надежда','надежда':'надежда',
+            'вика':'виктория','виктория':'виктория',
+            'юля':'юлия','юлия':'юлия',
+            'даша':'дарья','дарья':'дарья',
+            'жура':'евгений','жень':'евгений','женя':'евгений','евгений':'евгений',
+            'лёня':'леонид','лёнч':'леонид','леонид':'леонид',
+            'костя':'константин','константин':'константин',
+            'серёжа':'сергей','сережа':'сергей','сергей':'сергей',
+            'олодя':'владимир','олодь':'владимир','владимир':'владимир',
+            'володя':'владимир','володь':'владимир','вова':'владимир',
+            'лёша':'алексей','леша':'алексей','алексей':'алексей',
+            'гриша':'григорий','григорий':'григорий',
+            'паша':'павел','павел':'павел',
+            'рома':'роман','роман':'роман',
+            'слава':'владислав','славик':'владислав','владислав':'владислав',
+            'вячеслав':'вячеслав',
+            'витя':'виктор','виктор':'виктор',
+            'артём':'артём','артемий':'артём',
+            'боря':'борис','борис':'борис',
+            'ярослав':'ярослав'
+        };
+
+        function expandName(raw) {
+            const key = raw.toLowerCase().trim();
+            const expanded = nameMap[key] || key;
+            return expanded.charAt(0).toUpperCase() + expanded.slice(1);
+        }
+
+        async function handleSend(btnText) {
+            const text = btnText || input.value.trim();
+            if (!text) return;
+            addMsg(text, true);
+            if (!btnText) input.value = '';
+            const m = text.toLowerCase().trim();
+            let reply = '';
+
+            const apiUrl = window.APP_CONFIG.apiUrl;
+
+            async function botReply(r) {
+                reply = r;
+                showTyping();
+                await new Promise(resolve => setTimeout(resolve, 600 + Math.random() * 1000));
+                hideTyping();
+                addMsg(reply, false);
+                const chats = JSON.parse(localStorage.getItem('chistyifinal_chats') || '[]');
+                chats.push({ user: text, bot: reply, step, data: {...clientData}, time: new Date().toLocaleString('ru-RU') });
+                localStorage.setItem('chistyifinal_chats', JSON.stringify(chats));
+            }
+
+            if (step === 'greeting') {
+                step = 'ask_name';
+                await botReply('Здравствуйте, меня зовут Олег. Как я могу к Вам обращаться?');
+                return;
+            }
+
+            if (step === 'ask_name') {
+                const rawName = text.split(/[\.\,\!\?\;]/)[0].trim();
+                clientData.name = expandName(rawName.charAt(0).toUpperCase() + rawName.slice(1));
+                step = 'ask_cleaning';
+                await botReply('Рад приветствовать, ' + clientData.name + '! Вы хотите произвести уборку после ремонта?');
+                return;
+            }
+
+            if (step === 'ask_cleaning') {
+                if (/нет|обычн|просто|обычную|простую|простой/.test(m)) {
+                    step = 'greeting';
+                    await botReply('К сожалению, это не наш профиль. Мы наводим чистоту только после ремонта. Если понадобятся наши услуги, обращайтесь, будем рады помочь!');
+                    return;
+                }
+                if (/да|уборк|после ремонт|хочу|нужн/.test(m) || m.length <= 3) {
+                    step = 'ask_object';
+                    await botReply('У вас квартира, дом или коттедж?');
+                    return;
+                }
+                await botReply('Вы хотите произвести уборку после ремонта?');
+                return;
+            }
+
+            if (step === 'ask_object') {
+                if (/квартир/.test(m)) {
+                    clientData.type = 'Квартира';
+                } else if (/дом|коттедж/.test(m)) {
+                    clientData.type = 'Дом';
+                }
+                if (clientData.type) {
+                    step = 'ask_area';
+                    await botReply('Какой метраж площади?');
+                } else {
+                    await botReply('У вас квартира, дом или коттедж?');
+                }
+                return;
+            }
+
+            if (step === 'ask_area') {
+                const areaMatch = m.match(/(\d+)/);
+                if (areaMatch && parseInt(areaMatch[1]) >= 10) {
+                    clientData.area = areaMatch[1] + ' м²';
+                    step = 'price_given';
+                    const price = estimatePrice();
+                    await botReply(price + '. Записываем? На какое число и время вам удобно?');
+                } else {
+                    await botReply('Укажите площадь в квадратных метрах, например: 33');
+                }
+                return;
+            }
+
+            if (step === 'price_given') {
+                if (/цена|стоимость|стоит|сколько|за м|за метр|за кв|за этаж|влияет|подробн|услов|дополнительн|вопрос|гаранти|входит|оплат|доплат|химия|оборудован|мусор|уборк|убираете|что делаете|что включено|что входит|какого формата|как работает|отзыв|рекомендац|portfolio|пример|фото|до и после|когда приедете|на чём едете|сколько человек|бригад|команд|worker|worker/i.test(m)) {
+                    await botReply('Оставьте заявку — в течение 15 минут с вами свяжутся, вы сможете обсудить все условия и задать интересующие вас вопросы. Можете сейчас забронировать время — когда с вами свяжутся и вас что-то не устроит, мы отменим заявку. Записываем? На какое число и время вам удобно?');
+                    return;
+                }
+                if (/дорого|дёшево|дешево|дешевле|снижен|скидк|акци|промо|бюджет|подумаю|потом|пожалуй|не знаю|посмотрю|решу|обдумаю|подожду|позже|не сейчас|затрудняюсь|сомневаюсь|не готов|не увер|сначала.*поговор|сначала.*уточн|сначала.*разговор|сначала.*детал|сначала.*обсуд|позвон|перезвон|связаться|телефон|нет спасибо|не нужно|не интересует|пока|до свидан/i.test(m)) {
+                    await botReply('Забронируйте время сейчас — вы ничего не теряете, возможно, вам предложат скидки. А если после телефонного разговора вас что-то не устроит, заявка отменится. Готовы попробовать?');
+                    return;
+                }
+                collectData(text);
+                if (!clientData.time) {
+                    step = 'ask_time';
+                    showTyping();
+                    await new Promise(r => setTimeout(r, 600));
+                    hideTyping();
+                    addBotWithQuick('В какое время удобно?', ['Утро (6–11)', 'День (12–18)', 'Вечер (18–23)', 'Ночь (23–6, доплата)']);
+                    return;
+                }
+                if (!clientData.date) {
+                    await botReply('А какого числа? Назовите точную дату.');
+                    return;
+                }
+                step = 'ask_phone';
+                await botReply('Оставьте номер телефона — перезвоним в течение 15 минут для подтверждения.');
+                return;
+            }
+
+            if (step === 'ask_time') {
+                if (/утро/i.test(m)) clientData.time = 'Утро (6–11)';
+                else if (/день/i.test(m)) clientData.time = 'День (12–18)';
+                else if (/вечер/i.test(m)) clientData.time = 'Вечер (18–23)';
+                else if (/ночь/i.test(m)) clientData.time = 'Ночь (23–6, доплата)';
+
+                collectData(text);
+
+                if (clientData.time && clientData.date) {
+                    step = 'ask_phone';
+                    await botReply('Оставьте номер телефона — перезвоним в течение 15 минут для подтверждения.');
+                    return;
+                }
+                if (clientData.time && !clientData.date) {
+                    await botReply('А какого числа? Назовите точную дату.');
+                    return;
+                }
+                if (!clientData.time && clientData.date) {
+                    addBotWithQuick('В какое время удобно?', ['Утро (6–11)', 'День (12–18)', 'Вечер (18–23)', 'Ночь (23–6, доплата)']);
+                    return;
+                }
+                addBotWithQuick('Выберите время:', ['Утро (6–11)', 'День (12–18)', 'Вечер (18–23)', 'Ночь (23–6, доплата)']);
+                return;
+            }
+
+            if (step === 'ask_phone') {
+                const phoneMatch = text.match(/[\+]?[78][\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}/);
+                if (phoneMatch) {
+                    clientData.phone = phoneMatch[0];
+                } else {
+                    const rawPhone = text.replace(/[\s\-\(\)]/g, '');
+                    if (/^[78]\d{10}$/.test(rawPhone)) {
+                        clientData.phone = rawPhone;
+                    } else if (/^9\d{9}$/.test(rawPhone)) {
+                        clientData.phone = '7' + rawPhone;
+                    }
+                }
+                if (clientData.phone) {
+                    step = 'ask_address';
+                    if (/цена|стоимость|сколько|стоит|за м|за метр/i.test(m)) {
+                        const price = estimatePrice();
+                        await botReply((price ? price + '. ' : '') + 'Укажите адрес объекта — улицу, дом и квартиру.');
+                    } else {
+                        await botReply('Укажите адрес объекта — улицу, дом и квартиру.');
+                    }
+                    return;
+                } else {
+                    if (/цена|стоимость|сколько|стоит|за м|за метр/i.test(m)) {
+                        const price = estimatePrice();
+                        await botReply((price ? price + '. ' : '') + 'Не совсем разобрал номер. Напишите его, например: 8 913 123 45 67');
+                    } else {
+                        await botReply('Не совсем разобрал номер. Напишите его, например: 8 913 123 45 67');
+                    }
+                    return;
+                }
+            }
+
+            if (step === 'ask_address') {
+                if (/дорого|много|дёшево|дешево|снижен|скидк|акци|промо|бюджет|цен|стоит|стоим/i.test(m)) {
+                    await botReply('Забронируйте время сейчас — вы ничего не теряете, возможно, вам предложат скидки. А если после телефонного разговора вас что-то не устроит, заявка отменится. Готовы попробовать?');
+                    return;
+                }
+                if (/^(да|ок|хорошо|согласен|согласна| давай|поехали|отлично|норм)$/i.test(m.trim())) {
+                    await botReply('Отлично! Укажите адрес объекта — улицу, дом и квартиру.');
+                    return;
+                }
+                if (text.length >= 3) {
+                    clientData.address = text.charAt(0).toUpperCase() + text.slice(1);
+                    step = 'check_availability';
+                } else {
+                    await botReply('Укажите адрес объекта — улицу, дом и квартиру.');
+                    return;
+                }
+            }
+
+            if (step === 'check_availability') {
+                if (!clientData.address) {
+                    step = 'ask_address';
+                    await botReply('Укажите адрес объекта — улицу, дом и квартиру.');
+                    return;
+                }
+                if (!clientData.phone) {
+                    step = 'ask_phone';
+                    await botReply('Оставьте номер телефона — перезвоним в течение 15 минут для подтверждения.');
+                    return;
+                }
+                if (!clientData.time) {
+                    step = 'ask_time';
+                    showTyping();
+                    await new Promise(r => setTimeout(r, 600));
+                    hideTyping();
+                    addBotWithQuick('В какое время удобно?', ['Утро (6–11)', 'День (12–18)', 'Вечер (18–23)', 'Ночь (23–6, доплата)']);
+                    return;
+                }
+                if (!clientData.date) {
+                    await botReply('Назовите точную дату: например, завтра, послезавтра, 20 июля.');
+                    return;
+                }
+
+                showTyping();
+                try {
+                    await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: clientData.name,
+                            phone: clientData.phone || '',
+                            address: clientData.address || '',
+                            date: clientData.date,
+                            time: clientData.time,
+                            type: clientData.type || 'Квартира',
+                            area: clientData.area || '',
+                            source: 'Чат',
+                            created: new Date().toLocaleString('ru-RU')
+                        })
+                    });
+                    hideTyping();
+                    await botReply('Ваша заявка принята! Ожидайте звонка в течение 15 минут. Всего доброго!');
+                } catch (e) {
+                    console.error('Ошибка отправки заявки:', e);
+                    hideTyping();
+                    await botReply('Ваша заявка принята! Ожидайте звонка в течение 15 минут. Всего доброго!');
+                }
+                step = 'completed';
+                clientData = { type: null, area: null, name: null, phone: null, address: null, apartment: null, date: null, time: null };
+                return;
+            }
+
+            if (step === 'completed') {
+                if (/новая заявка|ещё|ещё одна|заново|сначала|другая запись/i.test(m)) {
+                    step = 'greeting';
+                    await botReply('Здравствуйте, меня зовут Олег. Как я могу к Вам обращаться?');
+                    return;
+                }
+                if (/спасибо|благодар|до свидан|пока|хорошо|ок|понял|понятно/i.test(m)) {
+                    await botReply('Рады помочь! Пусть ваша жизнь станет чище и радостней!');
+                    return;
+                }
+                await botReply('Ваша заявка уже принята! Если хотите оформить ещё одну заявку, напишите «новая заявка».');
+                return;
+            }
+
+            await botReply('Здравствуйте, меня зовут Олег. Как я могу к Вам обращаться?');
+            step = 'ask_name';
+        }
+
+        sendBtn.addEventListener('click', () => handleSend());
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+    })();
+    </script>
+
+    <script>
+        // ==================== SCROLL REVEAL ====================
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+        // ==================== NAVBAR SCROLL ====================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ==================== MOBILE MENU ====================
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+
+        // ==================== PARALLAX ====================
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroCards = document.querySelectorAll('.floating-card');
+            heroCards.forEach((card, i) => {
+                const speed = (i + 1) * 0.03;
+                card.style.transform = `translateY(${-scrolled * speed}px)`;
+            });
+            document.querySelectorAll('.hero-bg').forEach(bg => {
+                bg.style.transform = `translateY(${scrolled * 0.15}px)`;
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ==================== MODAL ====================
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modalClose');
+        const modalForm = document.getElementById('modalForm');
+        const modalFormView = document.getElementById('modalFormView');
+        const modalSuccessView = document.getElementById('modalSuccessView');
+
+        function openModal(e) {
+            if (e) e.preventDefault();
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // All buttons that open modal
+        document.querySelectorAll('[data-modal]').forEach(btn => {
+            btn.addEventListener('click', openModal);
+        });
+
+        // Modal form submit
+        modalForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('modalName').value,
+                phone: document.getElementById('modalPhone').value,
+                source: 'Форма на сайте',
+                date: new Date().toLocaleString('ru-RU')
+            };
+
+            // Save to localStorage
+            const leads = JSON.parse(localStorage.getItem('chistyifinal_leads') || '[]');
+            leads.push(data);
+            localStorage.setItem('chistyifinal_leads', JSON.stringify(leads));
+
+            fetch(window.APP_CONFIG.apiUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            // Show success
+            modalFormView.style.display = 'none';
+            modalSuccessView.style.display = 'block';
+
+            setTimeout(() => {
+                closeModal();
+                modalFormView.style.display = '';
+                modalSuccessView.style.display = 'none';
+                modalForm.reset();
+            }, 3000);
+        });
+
+        // ==================== BOTTOM FORM (CONTACT SECTION) ====================
+        function handleSubmit(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                date: new Date().toLocaleString('ru-RU')
+            };
+            const leads = JSON.parse(localStorage.getItem('chistyifinal_leads') || '[]');
+            leads.push(data);
+            localStorage.setItem('chistyifinal_leads', JSON.stringify(leads));
+
+            const btn = e.target.querySelector('.form-submit');
+            btn.textContent = 'Отправлено!';
+            btn.style.background = '#16a34a';
+            setTimeout(() => {
+                btn.textContent = 'Забронировать дату';
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

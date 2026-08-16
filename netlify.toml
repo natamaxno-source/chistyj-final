@@ -1,0 +1,33 @@
+# Конфигурация Netlify для сайта «Чистый Финал»
+# Статика из папки deploy, функции из netlify/functions
+
+[build]
+  publish = "deploy"
+  command = "npm run build"
+
+[functions]
+  directory = "netlify/functions"
+
+# Публичный эндпоинт лендинга → Netlify Function
+[[redirects]]
+  from = "/api/webhook/chat"
+  to = "/.netlify/functions/webhook-chat"
+  status = 200
+
+# Эндпоинт админки (список заявок) → Netlify Function
+[[redirects]]
+  from = "/api/orders"
+  to = "/.netlify/functions/orders"
+  status = 200
+
+# Обновление отдельной заявки (PATCH) → Netlify Function
+[[redirects]]
+  from = "/api/orders/*"
+  to = "/.netlify/functions/orders"
+  status = 200
+
+# Каталог и бригады (GET/PUT) → Netlify Function
+[[redirects]]
+  from = "/api/data"
+  to = "/.netlify/functions/data"
+  status = 200

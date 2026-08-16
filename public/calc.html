@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор клининга</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0F172A;
+    color: #E2E8F0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .calc {
+    background: #1E293B;
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #F8FAFC;
+  }
+  .subtitle { color: #94A3B8; font-size: 14px; margin-bottom: 24px; }
+  label { display: block; font-size: 13px; color: #94A3B8; margin-bottom: 6px; margin-top: 16px; }
+  input, select {
+    width: 100%;
+    padding: 10px 14px;
+    background: #0F172A;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    color: #E2E8F0;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+  }
+  input:focus, select:focus { border-color: #60A5FA; }
+  select option { background: #1E293B; }
+  .checkboxes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+  .checkboxes label { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #CBD5E1; cursor: pointer; margin: 0; }
+  .checkboxes input[type="checkbox"] { width: 16px; height: 16px; accent-color: #60A5FA; }
+  .btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn:hover { background: #1D4ED8; }
+  .btn:active { transform: scale(0.98); }
+  .result {
+    margin-top: 24px;
+    background: #0F172A;
+    border: 1px solid #475569;
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+  }
+  .result.show { display: block; }
+  .result-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #94A3B8; }
+  .result-row span:last-child { color: #E2E8F0; font-weight: 500; }
+  .result-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #475569;
+  }
+  .result-total span:last-child { color: #60A5FA; }
+  .per-sqm { color: #60A5FA; font-size: 13px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="calc">
+  <h1>Калькулятор клининга</h1>
+  <p class="subtitle">Рассчитайте стоимость уборки за 30 секунд</p>
+
+  <label>Площадь (м²)</label>
+  <input type="number" id="area" placeholder="Например, 65" min="1">
+
+  <label>Тариф</label>
+  <select id="tariff">
+    <option value="1">Лайт — 120 ₽/м² (мин. 5 000 ₽)</option>
+    <option value="2" selected>Стандарт — 170 ₽/м² (мин. 7 000 ₽)</option>
+    <option value="3">Премиум — 230 ₽/м² (мин. 10 000 ₽)</option>
+  </select>
+
+  <label>Тип объекта</label>
+  <select id="property">
+    <option>Квартира</option>
+    <option>Коттедж</option>
+  </select>
+
+  <label>Доп. услуги</label>
+  <div class="checkboxes">
+    <label><input type="checkbox" data-id="1"> Вывоз мусора (400 ₽)</label>
+    <label><input type="checkbox" data-id="2"> Газель (3 500 ₽)</label>
+    <label><input type="checkbox" data-id="3"> Мойка окна (350 ₽)</label>
+    <label><input type="checkbox" data-id="4"> Снятие плёнки (200 ₽/п.м)</label>
+    <label><input type="checkbox" data-id="5"> Химчистка дивана (2 500 ₽)</label>
+  </div>
+
+  <button class="btn" onclick="calculate()">Рассчитать стоимость</button>
+
+  <div class="result" id="result">
+    <div class="result-row"><span>Площадь</span><span id="r-area">—</span></div>
+    <div class="result-row"><span>Тариф</span><span id="r-tariff">—</span></div>
+    <div class="result-row"><span>Базовая стоимость</span><span id="r-base">—</span></div>
+    <div class="result-row"><span>Доп. услуги</span><span id="r-services">—</span></div>
+    <div class="result-total"><span>Итого</span><span id="r-total">—</span></div>
+    <p class="per-sqm" id="r-per-sqm"></p>
+  </div>
+</div>
+
+<script>
+const API = window.location.origin;
+const tariffs = { 1: { name: 'Лайт', price: 120, min: 5000 }, 2: { name: 'Стандарт', price: 170, min: 7000 }, 3: { name: 'Премиум', price: 230, min: 10000 } };
+const services = { 1: 400, 2: 3500, 3: 350, 4: 200, 5: 2500 };
+
+async function calculate() {
+  const area = parseFloat(document.getElementById('area').value);
+  if (!area || area <= 0) { alert('Введите площадь'); return; }
+
+  const tariffId = parseInt(document.getElementById('tariff').value);
+  const t = tariffs[tariffId];
+  let base = area * t.price;
+  if (base < t.min) base = t.min;
+
+  let svcTotal = 0;
+  document.querySelectorAll('.checkboxes input:checked').forEach(cb => {
+    svcTotal += services[parseInt(cb.dataset.id)] || 0;
+  });
+
+  const total = Math.ceil(base + svcTotal);
+  const perSqm = (total / area).toFixed(0);
+
+  document.getElementById('r-area').textContent = area + ' м²';
+  document.getElementById('r-tariff').textContent = t.name + ' (' + t.price + ' ₽/м²)';
+  document.getElementById('r-base').textContent = formatPrice(base);
+  document.getElementById('r-services').textContent = svcTotal > 0 ? formatPrice(svcTotal) : '—';
+  document.getElementById('r-total').textContent = formatPrice(total);
+  document.getElementById('r-per-sqm').textContent = '≈ ' + perSqm + ' ₽/м²';
+  document.getElementById('result').classList.add('show');
+}
+
+function formatPrice(p) {
+  return new Intl.NumberFormat('ru-RU').format(p) + ' ₽';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "chistyj-final",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт «Чистый Финал» — лендинг + админ-панель (Netlify Functions + Blobs)",
+  "main": "netlify/functions/webhook-chat.js",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  }
+}

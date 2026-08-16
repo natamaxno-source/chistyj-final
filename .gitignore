@@ -1,0 +1,15 @@
+node_modules/
+db/cleaning.db
+*.log
+.env
+*.xlsx
+.DS_Store
+
+# Секреты
+github_token.txt
+
+# Случайно скачанные видео (не часть приложения)
+videos/
+
+# Локальные файлы Netlify
+.netlify
