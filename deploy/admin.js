@@ -213,6 +213,7 @@ function initTabs() {
       document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
       if (tab.dataset.tab === 'orders') renderOrders();
       if (tab.dataset.tab === 'teams') renderTeamsAndStats();
+      if (tab.dataset.tab === 'archive') renderArchive();
     });
   });
 }
@@ -267,15 +268,18 @@ document.getElementById('save-catalog').addEventListener('click', () => {
 // ============================================================
 function renderOrders() {
   const container = document.getElementById('orders-list');
-  if (ordersData.length === 0) {
+  const active = ordersData.filter((o) => o.status === 'new' || o.status === 'calculated' || o.status === 'confirmed');
+  if (active.length === 0) {
     container.innerHTML = '<p class="empty-text">Заявок пока нет</p>';
     return;
   }
   const statusLabels = { new: 'Новая', calculated: 'Рассчитана', confirmed: 'Подтверждена', completed: 'Выполнена', cancelled: 'Отменена' };
   const statusClasses = { new: 'status-new', calculated: 'status-calculated', confirmed: 'status-confirmed', completed: 'status-completed', cancelled: 'status-cancelled' };
 
-  container.innerHTML = ordersData.map((o) => {
+  container.innerHTML = active.map((o) => {
     const tariff = tariffsData.find((t) => t.id === o.tariff_id);
+    const team = teamsData.find((t) => t.id === o.team_id);
+    const teamInfo = team ? `<span class="order-team">Бригада: ${team.name}${o.team_departure_time ? ' в ' + o.team_departure_time : ''}</span>` : '';
     return `
     <div class="order-card" data-order-id="${o.id}">
       <div class="order-card-header">
@@ -291,6 +295,49 @@ function renderOrders() {
           <span>Площадь: ${o.area ? o.area + ' м²' : '—'}</span>
           <span>Тариф: ${tariff ? tariff.name : '—'}</span>
           <span class="order-price">Итого: ${o.total_price ? o.total_price + ' ₽' : 'не рассчитано'}</span>
+          ${teamInfo}
+        </div>
+        <p class="order-message">${o.chat_message || ''}</p>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('.order-card').forEach((card) => {
+    card.addEventListener('click', () => openOrderModal(parseInt(card.dataset.orderId)));
+  });
+}
+
+// ============================================================
+// Архив: выполненные и отменённые заявки
+// ============================================================
+function renderArchive() {
+  const container = document.getElementById('archive-list');
+  const archived = ordersData.filter((o) => o.status === 'completed' || o.status === 'cancelled');
+  if (archived.length === 0) {
+    container.innerHTML = '<p class="empty-text">Архив пуст</p>';
+    return;
+  }
+  const statusLabels = { completed: 'Выполнена', cancelled: 'Отменена' };
+  const statusClasses = { completed: 'status-completed', cancelled: 'status-cancelled' };
+  container.innerHTML = archived.map((o) => {
+    const tariff = tariffsData.find((t) => t.id === o.tariff_id);
+    const team = teamsData.find((t) => t.id === o.team_id);
+    const teamInfo = team ? `<span class="order-team">Бригада: ${team.name}</span>` : '';
+    return `
+    <div class="order-card" data-order-id="${o.id}">
+      <div class="order-card-header">
+        <strong>${o.client_name}</strong>
+        <span class="status-badge ${statusClasses[o.status]}">${statusLabels[o.status]}</span>
+        ${o.is_night ? '<span class="status-badge" style="background:#1E1B4B;color:#C4B5FD;">Ночь +30%</span>' : ''}
+      </div>
+      <div class="order-card-body">
+        <div class="order-info">
+          <span>Телефон: ${o.phone || '—'}</span>
+          <span>Дата: ${o.scheduled_date || '—'}</span>
+          <span>Площадь: ${o.area ? o.area + ' м²' : '—'}</span>
+          <span>Тариф: ${tariff ? tariff.name : '—'}</span>
+          <span class="order-price">Итого: ${o.total_price ? o.total_price + ' ₽' : '—'}</span>
+          ${teamInfo}
         </div>
         <p class="order-message">${o.chat_message || ''}</p>
       </div>
@@ -306,10 +353,15 @@ function renderOrders() {
 // Вкладка 3: Бригады и статистика
 // ============================================================
 function renderTeamsAndStats() {
+  const now = new Date();
   const confirmed = ordersData.filter((o) => o.status === 'confirmed' || o.status === 'completed');
-  const totalRevenue = confirmed.reduce((s, o) => s + (o.total_price || 0), 0);
-  const avgPrice = confirmed.length ? Math.round(totalRevenue / confirmed.length) : 0;
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const thisMonth = confirmed.filter((o) => {
+    const m = o.created_at && o.created_at.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+    return m && parseInt(m[2]) === now.getMonth() + 1 && parseInt(m[3]) === now.getFullYear();
+  });
+  const totalRevenue = thisMonth.reduce((s, o) => s + (o.total_price || 0), 0);
+  const avgPrice = thisMonth.length ? Math.round(totalRevenue / thisMonth.length) : 0;
+  const todayStr = now.toLocaleDateString('ru-RU');
   const todayOrders = ordersData.filter((o) => o.created_at && o.created_at.startsWith(todayStr)).length;
 
   document.getElementById('stats-grid').innerHTML = `
@@ -319,26 +371,23 @@ function renderTeamsAndStats() {
     <div class="stat-card"><div class="stat-value">${ordersData.length}</div><div class="stat-label">Всего заявок</div></div>
   `;
 
+  const activeOrders = ordersData.filter((o) => o.status === 'confirmed' || o.status === 'calculated');
   const teamsList = document.getElementById('teams-list');
-  teamsList.innerHTML = teamsData.map((t) => `
+  teamsList.innerHTML = teamsData.map((t) => {
+    const assigned = activeOrders.filter((o) => o.team_id === t.id);
+    const isBusy = assigned.length > 0;
+    const job = assigned.map((o) =>
+      `<div class="team-job">${o.client_name} — ${o.scheduled_date || 'дата не указана'}${o.team_departure_time ? ', ' + o.team_departure_time : ''}</div>`
+    ).join('');
+    return `
     <div class="team-card">
       <div class="team-info">
         <strong>${t.name}</strong>
-        <span class="team-status ${t.is_available ? 'available' : 'busy'}">${t.is_available ? 'Свободна' : 'Занята'}</span>
+        <span class="team-status ${isBusy ? 'busy' : 'available'}">${isBusy ? 'Занята' : 'Свободна'}</span>
       </div>
-      <label class="toggle-switch">
-        <input type="checkbox" ${t.is_available ? 'checked' : ''} data-team-id="${t.id}">
-        <span class="toggle-slider"></span>
-      </label>
-    </div>
-  `).join('');
-
-  teamsList.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-    cb.addEventListener('change', () => {
-      const team = teamsData.find((t) => t.id === parseInt(cb.dataset.teamId));
-      if (team) { team.is_available = cb.checked; saveData('teams', teamsData); pushDataToServer(); renderTeamsAndStats(); }
-    });
-  });
+      ${isBusy ? `<div class="team-jobs">${job}</div>` : ''}
+    </div>`;
+  }).join('');
 }
 
 // ============================================================
@@ -349,9 +398,12 @@ let currentOrderId = null;
 function initModal() {
   document.getElementById('modal-close').addEventListener('click', closeModal);
   document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
-  document.getElementById('modal-calculate').addEventListener('click', calculateFromModal);
   document.getElementById('modal-confirm').addEventListener('click', confirmOrder);
-  document.getElementById('modal-save').addEventListener('click', saveOrder);
+  document.getElementById('modal-complete').addEventListener('click', completeOrder);
+  document.getElementById('modal-cancel').addEventListener('click', cancelOrder);
+  ['modal-area', 'modal-tariff', 'modal-property-type', 'modal-floors', 'modal-urgent', 'modal-night'].forEach((id) => {
+    document.getElementById(id).addEventListener('input', recalcFromModal);
+  });
 }
 
 function openOrderModal(orderId) {
@@ -369,6 +421,13 @@ function openOrderModal(orderId) {
   document.getElementById('modal-urgent').checked = !!order.is_urgent;
   document.getElementById('modal-night').checked = !!order.is_night;
   document.getElementById('modal-scheduled').value = order.scheduled_date || '';
+  const departureTime = order.team_departure_time || order.scheduled_time || '';
+  document.getElementById('modal-time').value = departureTime;
+
+  const teamSelect = document.getElementById('modal-team');
+  teamSelect.innerHTML = '<option value="">Не назначена</option>' + teamsData.map((t) =>
+    `<option value="${t.id}" ${t.id === order.team_id ? 'selected' : ''}>${t.name}</option>`
+  ).join('');
 
   const select = document.getElementById('modal-tariff');
   select.innerHTML = tariffsData.map((t) =>
@@ -393,10 +452,15 @@ function openOrderModal(orderId) {
       const qi = svcContainer.querySelector(`.qty-input[data-service-id="${cb.dataset.serviceId}"]`);
       qi.disabled = !cb.checked;
       if (cb.checked && parseInt(qi.value) === 0) qi.value = 1;
+      recalcFromModal();
     });
+  });
+  svcContainer.querySelectorAll('.qty-input').forEach((qi) => {
+    qi.addEventListener('input', recalcFromModal);
   });
 
   document.getElementById('modal-total-price').textContent = order.total_price ? order.total_price + ' ₽' : '— ₽';
+  recalcFromModal();
   document.getElementById('modal-overlay').classList.add('active');
 }
 
@@ -413,6 +477,8 @@ function getModalData() {
   const isUrgent = document.getElementById('modal-urgent').checked;
   const isNight = document.getElementById('modal-night').checked;
   const scheduledDate = document.getElementById('modal-scheduled').value;
+  const teamId = parseInt(document.getElementById('modal-team').value) || null;
+  const teamDepartureTime = document.getElementById('modal-time').value.trim();
   const services = [];
   document.querySelectorAll('#modal-services-list input[type="checkbox"]:checked').forEach((cb) => {
     const serviceId = parseInt(cb.dataset.serviceId);
@@ -420,14 +486,14 @@ function getModalData() {
     const quantity = parseInt(qtyInput.value) || 0;
     if (quantity > 0) services.push({ service_id: serviceId, quantity });
   });
-  return { area, tariff_id: tariffId, property_type: propertyType, floors_count: floorsCount, is_urgent: isUrgent, is_night: isNight, services, scheduled_date: scheduledDate };
+  return { area, tariff_id: tariffId, property_type: propertyType, floors_count: floorsCount, is_urgent: isUrgent, is_night: isNight, services, scheduled_date: scheduledDate, team_id: teamId, team_departure_time: teamDepartureTime };
 }
 
-function calculateFromModal() {
+function recalcFromModal() {
   const data = getModalData();
-  if (!data.area || !data.tariff_id) { alert('Укажите площадь и тариф'); return; }
+  if (!data.area || !data.tariff_id) { document.getElementById('modal-total-price').textContent = '— ₽'; return; }
   const tariff = tariffsData.find((t) => t.id === data.tariff_id);
-  if (!tariff) { alert('Тариф не найден'); return; }
+  if (!tariff) return;
   const svcList = data.services.map((s) => {
     const svc = servicesData.find((sd) => sd.id === s.service_id);
     return { price: svc ? svc.price : 0, quantity: s.quantity };
@@ -461,8 +527,6 @@ function saveOrder() {
   saveData('orders', ordersData);
   pushOrderToServer(order);
   document.getElementById('modal-total-price').textContent = order.total_price + ' ₽';
-  alert('Заявка сохранена!');
-  renderOrders();
 }
 
 function confirmOrder() {
@@ -471,6 +535,31 @@ function confirmOrder() {
   const order = ordersData.find((o) => o.id === currentOrderId);
   if (order) { order.status = 'confirmed'; saveData('orders', ordersData); pushOrderToServer(order); }
   alert('Заявка подтверждена!');
+  closeModal();
+  renderOrders();
+}
+
+function completeOrder() {
+  if (currentOrderId === null) return;
+  const order = ordersData.find((o) => o.id === currentOrderId);
+  if (!order) return;
+  order.status = 'completed';
+  saveData('orders', ordersData);
+  pushOrderToServer(order);
+  alert('Заявка выполнена и перемещена в архив!');
+  closeModal();
+  renderOrders();
+}
+
+function cancelOrder() {
+  if (currentOrderId === null) return;
+  const order = ordersData.find((o) => o.id === currentOrderId);
+  if (!order) return;
+  if (!confirm('Отменить заявку ' + order.client_name + '?')) return;
+  order.status = 'cancelled';
+  saveData('orders', ordersData);
+  pushOrderToServer(order);
+  alert('Заявка отменена и перемещена в архив!');
   closeModal();
   renderOrders();
 }

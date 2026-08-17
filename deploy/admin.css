@@ -203,6 +203,24 @@ tr:hover {
   background: #15803D;
 }
 
+.btn-warning {
+  background: #D97706;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #B45309;
+}
+
+.btn-danger {
+  background: #DC2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #B91C1C;
+}
+
 /* Карточки заявок */
 .orders-list {
   display: flex;

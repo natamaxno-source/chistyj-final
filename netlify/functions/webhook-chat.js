@@ -23,7 +23,7 @@ exports.handler = async (event) => {
       phone: data.phone || '',
       chat_message: [data.address, data.date, data.time].filter(Boolean).join(', ') || data.chat_message || '',
       property_type: data.type || 'Квартира',
-      area: data.area ? Number(data.area) : 0,
+      area: data.area ? Number(String(data.area).replace(/[^\d.,]/g, '').replace(',', '.')) || 0 : 0,
       status: 'new',
       source: data.source || 'Чат',
       created_at: new Date().toLocaleString('ru-RU'),

@@ -37,6 +37,7 @@
     <button class="tab active" data-tab="catalog">Каталог услуг</button>
     <button class="tab" data-tab="orders">Заявки</button>
     <button class="tab" data-tab="teams">Бригады и статистика</button>
+    <button class="tab" data-tab="archive">Архив</button>
   </nav>
 
   <main class="content">
@@ -88,6 +89,12 @@
 
       <h2>Бригады</h2>
       <div class="teams-list" id="teams-list"></div>
+    </section>
+
+    <!-- Вкладка 4: Архив -->
+    <section id="tab-archive" class="tab-content">
+      <h2>Архив заявок</h2>
+      <div class="orders-list" id="archive-list"></div>
     </section>
   </main>
 
@@ -149,6 +156,27 @@
           </div>
         </div>
 
+        <!-- Назначение бригады -->
+        <div class="modal-section">
+          <h3>Назначение бригады</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="modal-team">Бригада</label>
+              <select id="modal-team"></select>
+            </div>
+            <div class="form-group">
+              <label for="modal-time">Время выезда</label>
+              <select id="modal-time">
+                <option value="">Не указано</option>
+                <option value="Утро (6–11)">Утро (6–11)</option>
+                <option value="День (12–18)">День (12–18)</option>
+                <option value="Вечер (18–23)">Вечер (18–23)</option>
+                <option value="Ночь (23–6, доплата)">Ночь (23–6, доплата)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <!-- Доп. услуги -->
         <div class="modal-section">
           <h3>Дополнительные услуги</h3>
@@ -164,9 +192,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" id="modal-calculate">Рассчитать</button>
         <button class="btn btn-success" id="modal-confirm">Подтвердить заявку</button>
-        <button class="btn btn-primary" id="modal-save">Сохранить</button>
+        <button class="btn btn-warning" id="modal-complete">Выполнена</button>
+        <button class="btn btn-danger" id="modal-cancel">Отменить</button>
       </div>
     </div>
   </div>
