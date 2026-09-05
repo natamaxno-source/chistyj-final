@@ -68,8 +68,11 @@
 **Админ-панель — заявки:**
 ![Заявки](screenshots/admin-orders.png)
 
-**Админ-панель — каталог:**
-![Каталог](screenshots/admin-catalog.png)
+**Админ-панель — каталог (светлая тема):**
+![Каталог светлая тема](screenshots/admin-catalog.png)
+
+**Админ-панель — каталог (тёмная тема):**
+![Каталог тёмная тема](screenshots/admin-dark.png)
 
 **Админ-панель — бригады:**
 ![Бригады](screenshots/admin-teams.png)
@@ -125,6 +128,8 @@ curl -X POST https://chistyyfinal.netlify.app/api/webhook/chat \
 
 Адрес: https://chistyyfinal.netlify.app/admin
 Демо-пароль: `admin123` (для проверки).
+
+В админ-панели есть переключатель темы (иконка солнце/луна) — светлую тему можно менять на тёмную и обратно; выбор запоминается в браузере.
 
 ## Деплой
 
